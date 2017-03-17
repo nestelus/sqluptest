@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Role;
 use common\models\User;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -14,15 +15,8 @@ use common\models\User;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <?= $form->field($model, 'username',
-                ['enableAjaxValidation' => true]) ?>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<?= $form->field($model, 'email', ['enableAjaxValidation' => true]) ?>
-        </div>
-    </div>
+    <?= $form->field($model, 'username', ['enableAjaxValidation' => true])
+    ?>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <?=
@@ -41,17 +35,33 @@ use common\models\User;
             ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <?=
+            $form->field($model, 'email', ['enableAjaxValidation' => true])
+            ?>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <?=
+            $form->field($model, 'phone')->widget(MaskedInput::className(),
+                [
+                'mask' => '(999) 999-9999',
+                'options' => [
 
+                    'class' => 'form-control',
+                ]
+            ])
+            ?>
 
-
-
+        </div>
+    </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить',
-            ['class' => 'btn btn-success'])
+        <?=
+        Html::submitButton('Сохранить', ['class' => 'btn btn-success'])
         ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

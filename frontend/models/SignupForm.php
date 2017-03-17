@@ -14,6 +14,7 @@ class SignupForm extends Model
 {
     public $username;
     public $email;
+    public $phone;
     public $password;
     public $verifyCode;
     public $confirmPassword;
@@ -25,8 +26,9 @@ class SignupForm extends Model
     {
         $scenarios                          = parent::scenarios();
         $scenarios[self::SCENARIO_REGISTER] = ['username', 'email', 'password', 'verifyCode',
-            'confirmPassword'];
-        $scenarios[self::SCENARIO_VALIDATE] = ['username', 'email', 'password', 'confirmPassword'];
+            'phone', 'confirmPassword'];
+        $scenarios[self::SCENARIO_VALIDATE] = ['username', 'email', 'password', 'confirmPassword',
+            'phone'];
 
         return $scenarios;
     }
@@ -57,6 +59,7 @@ class SignupForm extends Model
                 'targetClass' => $user,
                 'message' => 'Такой e-mail уже используется ',
             ],
+            ['phone', 'required'],
             // password rules
             ['password', 'required'],
             ['password', 'string', 'min' => 6, 'max' => 72],
@@ -71,6 +74,7 @@ class SignupForm extends Model
         return [
             'username' => 'Имя пользователя',
             'password' => 'Пароль',
+            'phone' => 'Телефон',
             'verifyCode' => 'Введите символы на картинке',
             'confirmPassword' => 'Повторите пароль',
         ];
@@ -91,6 +95,7 @@ class SignupForm extends Model
         $user           = new User();
         $user->username = $this->username;
         $user->email    = $this->email;
+        $user->phone    = $this->phone;
         $user->role_id  = Role::ROLE_DEFAULT;
         $user->setPassword($this->password);
         $user->generateAuthKey();

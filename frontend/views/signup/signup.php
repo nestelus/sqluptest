@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 use yii\helpers\Url;
+use yii\widgets\MaskedInput;
 
 $this->title                   = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
@@ -34,11 +35,22 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             $form->field($model, 'email', [ 'enableAjaxValidation' => true])
             ?>
+            <?=
+            $form->field($model, 'phone', ['enableAjaxValidation' => true])->widget(MaskedInput::className(),
+                [
+                'mask' => '(999) 999-9999',
+                'options' => [
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+                    'class' => 'form-control',
+                ]
+            ])
+            ?>
+
+            <?= $form->field($model, 'password',
+                ['enableAjaxValidation' => true])->passwordInput() ?>
             <?=
             $form->field($model, 'confirmPassword',
-                [ 'enableAjaxValidation' => true])->passwordInput()
+                ['enableAjaxValidation' => true])->passwordInput()
             ?>
             <?=
             $form->field($model, 'verifyCode')->widget(Captcha::className(),
@@ -53,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </div>
 
-            <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

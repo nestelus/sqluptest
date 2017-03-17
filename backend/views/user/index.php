@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'form-control', 'prompt' => 'Все']),
             ],
             'email:email',
+            'phone',
             [
                 'attribute' => 'status',
                 'filter' => Html::dropDownList('searchUser[status]',

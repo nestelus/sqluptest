@@ -12,6 +12,7 @@ use common\models\User;
  */
 class searchUser extends User
 {
+
     /**
      * @inheritdoc
      */
@@ -19,7 +20,8 @@ class searchUser extends User
     {
         return [
             [['id', 'status', 'created_at', 'updated_at', 'role_id'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'confirm_token', 'email'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'confirm_token',
+                'email', 'phone'], 'safe'],
         ];
     }
 
@@ -71,7 +73,8 @@ class searchUser extends User
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'confirm_token', $this->confirm_token])
-            ->andFilterWhere(['like', 'email', $this->email]);
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'phone', $this->phone]);
 
         return $dataProvider;
     }
